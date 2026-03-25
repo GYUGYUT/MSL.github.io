@@ -419,19 +419,19 @@ function renderLocation() {
         <article class="card location-card">
           <h3>Lab Address</h3>
           <p class="location-address">${location.addressLines.join("<br />")}</p>
-          <a class="location-link" href="${location.mapLink}" target="_blank" rel="noopener noreferrer">
-            Open in Google Maps
-          </a>
+          <div class="location-actions">
+            <a class="location-link" href="${location.mapLink}" target="_blank" rel="noopener noreferrer">
+              Open in Google Maps
+            </a>
+          </div>
         </article>
-        <div class="card map-card">
-          <iframe
-            class="location-map"
-            src="${location.mapEmbed}"
-            title="Map to Medica System Lab"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
+        <article class="card location-card">
+          <h3>How To Reach</h3>
+          <div class="location-directions">
+            ${(location.directions || []).map((line) => `<p>${line}</p>`).join("")}
+          </div>
+          <p class="location-note">The in-page map embed was removed because Google iframe embeds can fail on static hosting. The external map link opens reliably.</p>
+        </article>
       </div>
     </section>
   `;
