@@ -19,6 +19,7 @@
         <a href="#members">Members</a>
         <a href="#alumni">Alumni</a>
         <a href="#projects">Projects</a>
+        <a href="#location">Location</a>
         <a href="#publications">Publications</a>
       </div>
     </nav>
@@ -31,6 +32,8 @@
           성균관대학교 Medica System Lab은 의료 인공지능과 지능형 시스템을 중심으로,
           실제 문제 해결로 이어지는 학제적 AI 연구를 수행합니다.
         </p>
+        <p id="hero-summary" class="hero__summary"></p>
+        <div id="hero-stats" class="hero__stats" aria-label="MSL research stats"></div>
       </div>
       <div class="hero__brand" aria-label="Sungkyunkwan University">
         <div class="hero__brand-glow" aria-hidden="true"></div>
@@ -45,6 +48,7 @@
       <div id="members-root"></div>
       <div id="alumni-root"></div>
       <div id="projects-root"></div>
+      <div id="location-root"></div>
 
       <section class="panel publications-panel" id="publications">
         <div class="panel-head">
@@ -74,8 +78,15 @@
       <p>© 2026 Medica System Lab (MSL)</p>
     </footer>
 
+    <div class="lightbox" id="image-lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightbox-close" type="button" aria-label="Close image">Close</button>
+      <div class="lightbox__dialog" role="dialog" aria-modal="true" aria-label="Expanded research image">
+        <img class="lightbox__image" id="lightbox-image" alt="" />
+      </div>
+    </div>
+
     <script src="site-data.js"></script>
-    <script src="render-sections.js"></script>
     <script src="publications.js"></script>
+    <script src="render-sections.js"></script>
   </body>
 </html>

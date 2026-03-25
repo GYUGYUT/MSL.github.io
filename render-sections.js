@@ -14,16 +14,159 @@ function parseDateOnly(dateText) {
   return new Date(`${dateText}T00:00:00`);
 }
 
+function normalizeLooseDate(dateText, isEndDate = false) {
+  if (!dateText) return null;
+  const cleaned = dateText.trim().replace(/\.$/, "");
+  const parts = cleaned.split(/[./-]/).filter(Boolean);
+  if (parts.length < 2) return null;
+
+  const year = parts[0];
+  const month = parts[1].padStart(2, "0");
+  const day = parts[2] ? parts[2].padStart(2, "0") : isEndDate ? "31" : "01";
+  const parsed = new Date(`${year}-${month}-${day}T00:00:00`);
+
+  if (Number.isNaN(parsed.getTime())) {
+    if (!parts[2] && isEndDate) {
+      const monthStart = new Date(`${year}-${month}-01T00:00:00`);
+      if (Number.isNaN(monthStart.getTime())) return null;
+      return new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 0);
+    }
+    return null;
+  }
+
+  if (!parts[2] && isEndDate) {
+    return new Date(parsed.getFullYear(), parsed.getMonth() + 1, 0);
+  }
+
+  return parsed;
+}
+
 function getNewsBaseDate(newsItem) {
   return newsItem.publicationDate || newsItem.startDate || null;
 }
 
-function isWithinDays(baseDateText, days) {
+function isWithinDays(baseDateText, days, futureDays = 0) {
   if (!baseDateText) return false;
   const created = parseDateOnly(baseDateText);
   const now = new Date();
   const ms = now.getTime() - created.getTime();
-  return ms >= 0 && ms <= days * 24 * 60 * 60 * 1000;
+  return ms >= futureDays * -24 * 60 * 60 * 1000 && ms <= days * 24 * 60 * 60 * 1000;
+}
+
+function formatDateOnly(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function extractQuotedTitle(citation) {
+  const matched = citation.match(/"([^"]+)"/);
+  return matched ? matched[1] : citation;
+}
+
+function extractConferenceName(citation) {
+  const afterTitle = citation.split('"').slice(2).join('"').trim();
+  const withoutDate = afterTitle.replace(/,\s*[A-Za-z]+,?\s+\d{1,2},?\s+\d{4}\s*\.?$/i, "").trim();
+  return withoutDate || "Conference presentation";
+}
+
+function parsePublicationDate(citation) {
+  const matched = citation.match(
+    /\b(January|February|March|April|May|June|July|August|September|October|November|December),?\s+(\d{1,2}),?\s+((?:19|20)\d{2})\b/i
+  );
+  if (!matched) return null;
+
+  const parsed = new Date(`${matched[1]} ${matched[2]}, ${matched[3]}`);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function getAutoConferenceNews() {
+  if (typeof publicationData === "undefined" || !publicationData.conference) return [];
+
+  const items = Object.values(publicationData.conference)
+    .flat()
+    .map((item) => {
+      const parsedDate = parsePublicationDate(item.citation);
+      if (!parsedDate) return null;
+
+      return {
+        baseDate: formatDateOnly(parsedDate),
+        title: extractQuotedTitle(item.citation),
+        description: extractConferenceName(item.citation),
+        citation: item.citation
+      };
+    })
+    .filter(Boolean)
+    .filter((item) => isWithinDays(item.baseDate, 365, 120))
+    .sort((a, b) => new Date(b.baseDate) - new Date(a.baseDate));
+
+  const uniqueByCitation = new Map();
+  items.forEach((item) => {
+    uniqueByCitation.set(item.citation, item);
+  });
+
+  return Array.from(uniqueByCitation.values()).slice(0, 6);
+}
+
+function extractProjectEndDate(projectText) {
+  const matchedRange = projectText.match(/~\s*((?:19|20)\d{2}[./-]\d{2}(?:[./-]\d{2})?)/);
+  if (!matchedRange) return null;
+  return normalizeLooseDate(matchedRange[1], true);
+}
+
+function classifyProjects(projects) {
+  const now = new Date();
+  const grouped = { current: [], past: [] };
+
+  projects.forEach((project) => {
+    const endDate = extractProjectEndDate(project);
+    if (endDate && endDate < now) {
+      grouped.past.push(project);
+      return;
+    }
+    grouped.current.push(project);
+  });
+
+  return grouped;
+}
+
+function countPublicationItems(type) {
+  if (typeof publicationData === "undefined" || !publicationData[type]) return 0;
+  return Object.values(publicationData[type]).reduce((sum, items) => sum + items.length, 0);
+}
+
+function renderHeroStats() {
+  const summary = document.getElementById("hero-summary");
+  const statsRoot = document.getElementById("hero-stats");
+  if (!summary || !statsRoot) return;
+
+  const allProjects = [...(siteData.projects.current || []), ...(siteData.projects.past || [])];
+  const groupedProjects = classifyProjects(allProjects);
+  const journalCount = countPublicationItems("journal");
+  const conferenceCount = countPublicationItems("conference");
+  const patentCount = countPublicationItems("patent");
+  const currentProjectCount = groupedProjects.current.length;
+  const pastProjectCount = groupedProjects.past.length;
+
+  summary.textContent =
+    `현재 저널 ${journalCount}편, 컨퍼런스 ${conferenceCount}편, 특허 ${patentCount}건, 진행 과제 ${currentProjectCount}건, 종료 과제 ${pastProjectCount}건을 운영하고 있습니다.`;
+
+  const stats = [
+    { label: "Journals", value: `${journalCount}` },
+    { label: "Conferences", value: `${conferenceCount}` },
+    { label: "Patents", value: `${patentCount}` },
+    { label: "Current Projects", value: `${currentProjectCount}` },
+    { label: "Past Projects", value: `${pastProjectCount}` }
+  ];
+
+  statsRoot.innerHTML = stats
+    .map(
+      (item) => `
+        <article class="hero-stat">
+          <strong>${item.value}</strong>
+          <span>${item.label}</span>
+        </article>
+      `
+    )
+    .join("");
 }
 
 function renderNews() {
@@ -31,15 +174,20 @@ function renderNews() {
   if (!root) return;
 
   const NEWS_ACTIVE_DAYS = 365;
-  const activeNews = (siteData.news || [])
+  const UPCOMING_NEWS_DAYS = 120;
+  const manualNews = (siteData.news || [])
     .map((n) => ({ ...n, baseDate: getNewsBaseDate(n) }))
-    .filter((n) => isWithinDays(n.baseDate, NEWS_ACTIVE_DAYS));
+    .filter((n) => isWithinDays(n.baseDate, NEWS_ACTIVE_DAYS, UPCOMING_NEWS_DAYS));
+  const autoConferenceNews = getAutoConferenceNews();
+  const activeNews = [...manualNews, ...autoConferenceNews]
+    .sort((a, b) => new Date(b.baseDate) - new Date(a.baseDate))
+    .slice(0, 8);
 
   root.innerHTML = `
     <section class="panel" id="news">
       <div class="panel-head">
         <h2>News</h2>
-        <p>출판일 또는 시작일 기준 최근 1년 내 소식만 자동 노출됩니다.</p>
+        <p>최근 소식과 가까운 예정 발표를 자동으로 노출합니다.</p>
       </div>
       <div class="news-grid">
         ${
@@ -77,7 +225,9 @@ function renderResearch() {
           .map(
             (r) => `
               <article class="card research-card">
-                <img class="research-image" src="${r.image}" alt="${r.imageAlt || r.title}" />
+                <button class="research-image-btn" type="button" aria-label="Expand ${r.title} image">
+                  <img class="research-image" src="${r.image}" alt="${r.imageAlt || r.title}" />
+                </button>
                 <h3>${r.title}</h3>
                 <p>${r.summary}</p>
               </article>
@@ -87,6 +237,49 @@ function renderResearch() {
       </div>
     </section>
   `;
+}
+
+function setupResearchLightbox() {
+  const root = document.getElementById("research-root");
+  const lightbox = document.getElementById("image-lightbox");
+  const lightboxImage = document.getElementById("lightbox-image");
+  const closeButton = document.getElementById("lightbox-close");
+  if (!root || !lightbox || !lightboxImage || !closeButton) return;
+
+  function closeLightbox() {
+    lightbox.classList.remove("is-open");
+    lightbox.setAttribute("aria-hidden", "true");
+    lightboxImage.removeAttribute("src");
+    lightboxImage.alt = "";
+    document.body.classList.remove("lightbox-open");
+  }
+
+  root.addEventListener("click", (event) => {
+    const trigger = event.target.closest(".research-image-btn");
+    if (!trigger) return;
+
+    const image = trigger.querySelector(".research-image");
+    if (!image) return;
+
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt;
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("lightbox-open");
+  });
+
+  closeButton.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+      closeLightbox();
+    }
+  });
 }
 
 function renderMembers() {
@@ -101,6 +294,7 @@ function renderMembers() {
         <img class="prof-photo" src="${p.photo}" alt="${p.photoAlt || p.name}" />
         <h3>${p.name}</h3>
         <p class="prof-role">${p.role}</p>
+        <p class="member-email">${p.email}</p>
         <div class="member-actions">
           ${memberLink("Google Scholar", p.scholar, false)}
           ${memberLink("Email", p.email, true)}
@@ -129,6 +323,7 @@ function renderMembers() {
                 <img class="member-photo" src="${m.photo}" alt="${m.alt}" />
                 <h3>${m.nameHtml}</h3>
                 <p>${m.role}</p>
+                <p class="member-email">${m.email || "Email not available"}</p>
                 <div class="member-actions">
                   ${memberLink("Google Scholar", m.scholar, false)}
                   ${memberLink("Email", m.email, true)}
@@ -184,24 +379,59 @@ function renderProjects() {
   const root = document.getElementById("projects-root");
   if (!root) return;
 
-  const currentItems = siteData.projects.current.map((i) => `<li>${i}</li>`).join("");
-  const pastItems = siteData.projects.past.map((i) => `<li>${i}</li>`).join("");
+  const allProjects = [...(siteData.projects.current || []), ...(siteData.projects.past || [])];
+  const groupedProjects = classifyProjects(allProjects);
+  const currentItems = groupedProjects.current.map((i) => `<li>${i}</li>`).join("");
+  const pastItems = groupedProjects.past.map((i) => `<li>${i}</li>`).join("");
 
   root.innerHTML = `
     <section class="panel" id="projects">
       <div class="panel-head">
         <h2>Projects</h2>
-        <p>Current Projects / Past Projects</p>
+        <p>연구기간 종료일 기준으로 Current Projects와 Past Projects가 자동 분류됩니다.</p>
       </div>
       <div class="project-columns">
         <article class="card project-card">
           <h3>Current Projects</h3>
-          <ul class="project-list">${currentItems}</ul>
+          <ul class="project-list">${currentItems || "<li>현재 진행 중인 프로젝트가 없습니다.</li>"}</ul>
         </article>
         <article class="card project-card">
           <h3>Past Projects</h3>
-          <ul class="project-list">${pastItems}</ul>
+          <ul class="project-list">${pastItems || "<li>등록된 종료 프로젝트가 없습니다.</li>"}</ul>
         </article>
+      </div>
+    </section>
+  `;
+}
+
+function renderLocation() {
+  const location = siteData.location;
+  const root = document.getElementById("location-root");
+  if (!root || !location) return;
+
+  root.innerHTML = `
+    <section class="panel" id="location">
+      <div class="panel-head">
+        <h2>Location</h2>
+        <p>${location.title}, ${location.campus}</p>
+      </div>
+      <div class="location-layout">
+        <article class="card location-card">
+          <h3>Lab Address</h3>
+          <p class="location-address">${location.addressLines.join("<br />")}</p>
+          <a class="location-link" href="${location.mapLink}" target="_blank" rel="noopener noreferrer">
+            Open in Google Maps
+          </a>
+        </article>
+        <div class="card map-card">
+          <iframe
+            class="location-map"
+            src="${location.mapEmbed}"
+            title="Map to Medica System Lab"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </div>
     </section>
   `;
@@ -209,7 +439,7 @@ function renderProjects() {
 
 function setupSectionNavigation() {
   const navLinks = Array.from(document.querySelectorAll(".top-nav__inner a"));
-  const allSections = ["news", "research", "members", "alumni", "projects", "publications"];
+  const allSections = ["news", "research", "members", "alumni", "projects", "location", "publications"];
   const homeSections = ["news", "research"];
 
   function setActiveNav(hash) {
@@ -250,9 +480,12 @@ function setupSectionNavigation() {
   applyFromHash();
 }
 
+renderHeroStats();
 renderNews();
 renderResearch();
+setupResearchLightbox();
 renderMembers();
 renderAlumni();
 renderProjects();
+renderLocation();
 setupSectionNavigation();

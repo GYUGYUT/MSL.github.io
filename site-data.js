@@ -37,6 +37,16 @@ const siteData = {
       "imageAlt": "MSL research topic 3"
     }
   ],
+  "location": {
+    "title": "Medica System Lab",
+    "campus": "Sungkyunkwan University, Natural Sciences Campus",
+    "addressLines": [
+      "Room No. 23518",
+      "The First Engineering Building"
+    ],
+    "mapEmbed": "https://maps.google.com/maps?q=Sungkyunkwan%20University%20The%20First%20Engineering%20Building%20Natural%20Sciences%20Campus&z=17&output=embed",
+    "mapLink": "https://www.google.com/maps/place/%EC%84%B1%EA%B7%A0%EA%B4%80%EB%8C%80%ED%95%99%EA%B5%90+%EC%A0%9C1%EA%B3%B5%ED%95%99%EA%B4%80+(%EC%9E%90%EC%97%B0%EA%B3%BC%ED%95%99%EC%BA%A0%ED%8D%BC%EC%8A%A4)/data=!4m2!3m1!1s0x0:0x82d81ea4e191df39?sa=X&ved=1t:2428&ictx=111"
+  },
   "professor": {
     "photo": "assets/images/headshot.jpg",
     "photoAlt": "Prof. Jitae Shin",
