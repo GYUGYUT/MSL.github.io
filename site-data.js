@@ -84,7 +84,7 @@ const siteData = {
       "photo": "assets/images/gyutaeoh.jpg",
       "alt": "Gyutae Oh",
       "nameHtml": "Gyutae Oh <span>(오규태)</span>",
-      "role": "Ph.D. Student, started 2026",
+      "role": "Ph.D. Student, M.S. completed 2025, rejoined in 2026",
       "scholar": "https://scholar.google.com/citations?user=2_rG1kQAAAAJ&hl=ko",
       "email": "alswo740012@g.skku.edu",
       "homepage": "https://gyugyut.github.io/gyutae.github.io/"
@@ -93,9 +93,27 @@ const siteData = {
       "photo": "assets/images/hyunmin.jpg",
       "alt": "Hyunmin Kong",
       "nameHtml": "Hyunmin Kong <span>(공현민)</span>",
-      "role": "Ph.D. Student, started 2026",
+      "role": "Ph.D. Student, M.S. completed 2025, rejoined in 2026",
       "scholar": "https://scholar.google.com/citations?user=9vqlTzkAAAAJ&hl=ko&oi=ao",
       "email": "khm1754@g.skku.edu",
+      "homepage": null
+    },
+    {
+      "photo": "assets/images/member-placeholder.svg",
+      "alt": "Siwon Hwang",
+      "nameHtml": "Siwon Hwang <span>(황시원)</span>",
+      "role": "Ph.D. Student, M.S. completed 2025, rejoined in 2026",
+      "scholar": null,
+      "email": null,
+      "homepage": null
+    },
+    {
+      "photo": "assets/images/Zhiqiang-Shen.jpg",
+      "alt": "Zhiqiang Shen",
+      "nameHtml": "Zhiqiang Shen <span>(신지강)</span>",
+      "role": "Integrated Ph.D. Student, started 2025",
+      "scholar": null,
+      "email": "zhiqiang001@skku.edu",
       "homepage": null
     },
     {
@@ -161,15 +179,6 @@ const siteData = {
       "email": "kdyuoung1999@g.skku.edu",
       "homepage": null
     },
-    {
-      "photo": "assets/images/Zhiqiang-Shen.jpg",
-      "alt": "Zhiqiang Shen",
-      "nameHtml": "Zhiqiang Shen <span>(신지강)</span>",
-      "role": "Member",
-      "scholar": null,
-      "email": "zhiqiang001@skku.edu",
-      "homepage": null
-    }
   ],
   "alumni": {
     "phd": [

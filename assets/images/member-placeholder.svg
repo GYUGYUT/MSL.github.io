@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Member photo placeholder</title>
+  <desc id="desc">Placeholder portrait for a lab member profile card.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d9ece6" />
+      <stop offset="100%" stop-color="#f0e7cf" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)" />
+  <circle cx="400" cy="340" r="150" fill="#b4ccc5" />
+  <path d="M180 840c34-164 150-252 220-252s186 88 220 252" fill="#c7ddd7" />
+  <text x="400" y="930" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="92" fill="#2f5852">
+    SH
+  </text>
+</svg>
