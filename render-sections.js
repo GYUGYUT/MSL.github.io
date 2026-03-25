@@ -147,7 +147,7 @@ function renderHeroStats() {
   const pastProjectCount = groupedProjects.past.length;
 
   summary.textContent =
-    `현재 저널 ${journalCount}편, 컨퍼런스 ${conferenceCount}편, 특허 ${patentCount}건, 진행 과제 ${currentProjectCount}건, 종료 과제 ${pastProjectCount}건을 운영하고 있습니다.`;
+    `We currently maintain ${journalCount} journal papers, ${conferenceCount} conference papers, ${patentCount} patents, ${currentProjectCount} ongoing projects, and ${pastProjectCount} completed projects.`;
 
   const stats = [
     { label: "Journals", value: `${journalCount}` },
@@ -187,7 +187,7 @@ function renderNews() {
     <section class="panel" id="news">
       <div class="panel-head">
         <h2>News</h2>
-        <p>최근 소식과 가까운 예정 발표를 자동으로 노출합니다.</p>
+        <p>Recent updates and upcoming presentations are shown automatically.</p>
       </div>
       <div class="news-grid">
         ${
@@ -203,7 +203,7 @@ function renderNews() {
             `
                 )
                 .join("")
-            : '<article class="card news-card"><p class="news-text">현재 표시할 최근 뉴스가 없습니다.</p></article>'
+            : '<article class="card news-card"><p class="news-text">There are no recent news items to display at the moment.</p></article>'
         }
       </div>
     </section>
@@ -388,16 +388,16 @@ function renderProjects() {
     <section class="panel" id="projects">
       <div class="panel-head">
         <h2>Projects</h2>
-        <p>연구기간 종료일 기준으로 Current Projects와 Past Projects가 자동 분류됩니다.</p>
+        <p>Projects are classified automatically into current and past categories based on their end dates.</p>
       </div>
       <div class="project-columns">
         <article class="card project-card">
           <h3>Current Projects</h3>
-          <ul class="project-list">${currentItems || "<li>현재 진행 중인 프로젝트가 없습니다.</li>"}</ul>
+          <ul class="project-list">${currentItems || "<li>There are no ongoing projects at the moment.</li>"}</ul>
         </article>
         <article class="card project-card">
           <h3>Past Projects</h3>
-          <ul class="project-list">${pastItems || "<li>등록된 종료 프로젝트가 없습니다.</li>"}</ul>
+          <ul class="project-list">${pastItems || "<li>There are no completed projects listed yet.</li>"}</ul>
         </article>
       </div>
     </section>

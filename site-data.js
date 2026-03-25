@@ -1,38 +1,38 @@
 const siteData = {
-  "labIntro": "Medica System Lab (MSL)은 Continual Learning, 이미지 생성(Generative Models), 이상치 탐지(Anomaly Detection)를 포함한 의료/산업 AI 핵심 기술을 연구합니다.",
+  "labIntro": "Medica System Lab (MSL) studies core medical and industrial AI technologies, including continual learning, generative models, and anomaly detection.",
   "news": [
     {
       "publicationDate": "2026-01-24",
-      "title": "ICCRD 2026 논문 발표 축하",
-      "description": "Seungho Jung, Gyutae Oh, Hyunmin Kong 연구 결과가 ICCRD 2026에 채택되었습니다. 축하합니다!"
+      "title": "ICCRD 2026 Paper Accepted",
+      "description": "Research by Seungho Jung, Gyutae Oh, and Hyunmin Kong has been accepted to ICCRD 2026."
     },
     {
       "publicationDate": "2026-05-06",
-      "title": "ICASSP 2026 발표 축하",
-      "description": "Minseon Park, Jungwoo Bae 연구가 ICASSP 2026에서 발표되었습니다. 축하합니다!"
+      "title": "ICASSP 2026 Presentation",
+      "description": "Research by Minseon Park and Jungwoo Bae was presented at ICASSP 2026."
     },
     {
       "startDate": "2025-07-01",
-      "title": "중기부 과제 시작",
-      "description": "온디바이스 AI 기반 수소 인프라 예지보전 플랫폼 개발 과제가 시작되었습니다."
+      "title": "Government-Funded Project Started",
+      "description": "The project on an on-device AI-based predictive maintenance platform for hydrogen infrastructure has started."
     }
   ],
   "research": [
     {
       "title": "AI/ML in Beyond-5G & Explainable AI",
-      "summary": "Wireless/Mobile 자원관리, Federated Learning 기반 클라이언트 클러스터링, Test Case Prioritization 및 신경망 설명가능성 분석을 수행합니다.",
+      "summary": "We study wireless and mobile resource management, federated learning-based client clustering, test case prioritization, and explainability analysis for neural networks.",
       "image": "assets/images/MSL_Research1.jpg",
       "imageAlt": "MSL research topic 1"
     },
     {
       "title": "Medical Image Processing",
-      "summary": "질환 예후 예측, 비지도 이상치 탐지, 질환 중증도 추정, diffusion 기반 초해상화, 불균형/노이즈 데이터 학습을 연구합니다.",
+      "summary": "We work on prognosis prediction, unsupervised anomaly detection, disease severity estimation, diffusion-based super-resolution, and learning with imbalanced or noisy data.",
       "image": "assets/images/MSL_Research2.jpg",
       "imageAlt": "MSL research topic 2"
     },
     {
       "title": "Robust Recognition & Image Restoration",
-      "summary": "자율주행 강건 객체인식과 멀티 열화(저조도/안개/비) 환경 영상 복원을 위한 cost-efficient 딥러닝 모델을 개발합니다.",
+      "summary": "We develop cost-efficient deep learning models for robust object recognition in autonomous driving and image restoration under multiple degradations such as low light, fog, and rain.",
       "image": "assets/images/MSL_Research3.jpg",
       "imageAlt": "MSL research topic 3"
     }
@@ -58,7 +58,7 @@ const siteData = {
     "role": "Professor of Sungkyunkwan University",
     "email": "jtshin@skku.edu",
     "scholar": "https://scholar.google.com/citations?user=lxtFyQ0AAAAJ&hl=en",
-    "affiliation": "School of Electronic & Electrical Engineering (전자전기공학부), Department of Electrical & Computer Engineering (전자전기컴퓨터공학과), Department of Intelligent Robotics (지능형로봇학과)",
+    "affiliation": "School of Electronic & Electrical Engineering, Department of Electrical & Computer Engineering, Department of Intelligent Robotics",
     "coordinates": [
       "Room No. 23518",
       "The First Engineering Building"

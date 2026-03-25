@@ -231,15 +231,42 @@ Cross-Layer QoS mapping for H.264 SVC over 3GPP LTE Systems, ITU-T Study Group 1
 QoS mapping for H.264 SVC over 3GPP LTE using cross-layer approach, ITU-T Study Group 16, AVD-4020, Nov. 2010.
 Junho Jeong, Doug Young Suh, Jitae Shin, Joo Myung Seok(ETRI), Jong Hyup Lee(ETRI), Compatibility of MPEG-4 Traffic Descriptors to the Current Networks, MPEG, M7740, December 3, 2001, Pataya.`;
 
+const preprintEntries = [
+  {
+    citation:
+      "Gyutae Oh, Jitae Shin, UniPrompt-CL: Sustainable Continual Learning in Medical AI with Unified Prompt Pools, CoRR abs/2508.10954, 2025.",
+    links: [
+      {
+        label: "Scholar",
+        href: "https://scholar.google.com/citations?view_op=view_citation&hl=ko&user=2_rG1kQAAAAJ&citation_for_view=2_rG1kQAAAAJ:LkGwnXOMwfcC"
+      },
+      {
+        label: "arXiv",
+        href: "https://arxiv.org/abs/2508.10954"
+      }
+    ]
+  },
+  {
+    citation:
+      "Gyutae Oh, Jitae Shin, Residual SODAP: Residual Self-Organizing Domain-Adaptive Prompting with Structural Knowledge Preservation for Continual Learning, CoRR abs/2603.12816, 2026.",
+    links: [
+      {
+        label: "arXiv",
+        href: "https://arxiv.org/abs/2603.12816"
+      }
+    ]
+  }
+];
+
 function extractYear(citation) {
   const years = citation.match(/\b(19|20)\d{2}\b/g);
   if (!years || years.length === 0) return "Unknown";
   return years[years.length - 1];
 }
 
-function extractFirstUrl(citation) {
-  const url = citation.match(/https?:\/\/[^\s)]+/);
-  return url ? url[0].replace(/[.,]$/, "") : null;
+function extractUrls(citation) {
+  const urls = citation.match(/https?:\/\/[^\s)]+/g);
+  return (urls || []).map((url) => url.replace(/[.,]$/, ""));
 }
 
 function buildYearMap(citations) {
@@ -248,7 +275,19 @@ function buildYearMap(citations) {
     if (!acc[year]) acc[year] = [];
     acc[year].push({
       citation,
-      url: extractFirstUrl(citation)
+      links: extractUrls(citation).map((href) => ({ label: "Open Link", href }))
+    });
+    return acc;
+  }, {});
+}
+
+function buildYearMapFromEntries(entries) {
+  return entries.reduce((acc, entry) => {
+    const year = extractYear(entry.citation);
+    if (!acc[year]) acc[year] = [];
+    acc[year].push({
+      citation: entry.citation,
+      links: entry.links || []
     });
     return acc;
   }, {});
@@ -267,6 +306,7 @@ const publicationData = {
       .map((line) => line.trim())
       .filter(Boolean)
   ),
+  preprint: buildYearMapFromEntries(preprintEntries),
   patent: buildYearMap(
     rawPatentText
       .split("\n")
@@ -291,7 +331,7 @@ function renderPublicationType(type) {
   root.innerHTML = "";
 
   if (years.length === 0) {
-    root.innerHTML = '<p class="pub-empty">등록된 publication이 없습니다.</p>';
+    root.innerHTML = '<p class="pub-empty">No publications have been added yet.</p>';
     return;
   }
 
@@ -309,7 +349,7 @@ function renderPublicationType(type) {
     if (!items.length) {
       const empty = document.createElement("p");
       empty.className = "pub-empty";
-      empty.textContent = "이 연도에는 아직 등록된 항목이 없습니다.";
+      empty.textContent = "There are no items listed for this year yet.";
       yearBlock.appendChild(empty);
     } else {
       const list = document.createElement("ol");
@@ -324,15 +364,15 @@ function renderPublicationType(type) {
         citation.textContent = item.citation;
         li.appendChild(citation);
 
-        if (item.url) {
+        (item.links || []).forEach((itemLink) => {
           const link = document.createElement("a");
           link.className = "pub-link";
-          link.href = item.url;
+          link.href = itemLink.href;
           link.target = "_blank";
           link.rel = "noopener noreferrer";
-          link.textContent = "Open Link";
+          link.textContent = itemLink.label || "Open Link";
           li.appendChild(link);
-        }
+        });
 
         list.appendChild(li);
       });
