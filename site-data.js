@@ -45,6 +45,10 @@ const siteData = {
     "email": "jtshin@skku.edu",
     "scholar": "https://scholar.google.com/citations?user=lxtFyQ0AAAAJ&hl=en",
     "affiliation": "School of Electronic & Electrical Engineering (전자전기공학부), Department of Electrical & Computer Engineering (전자전기컴퓨터공학과), Department of Intelligent Robotics (지능형로봇학과)",
+    "coordinates": [
+      "Room No. 23518",
+      "The First Engineering Building"
+    ],
     "educations": [
       "(2001) Ph.D. Electrical Enginerring, University of Southern California, USA",
       "(1998) M.S. Electrical Enginerring, University of Southern California, USA",

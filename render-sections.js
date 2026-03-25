@@ -89,14 +89,14 @@ function renderResearch() {
   `;
 }
 
-function renderProfessor() {
+function renderMembers() {
   const p = siteData.professor;
-  const root = document.getElementById("professor-root");
+  const root = document.getElementById("members-root");
   if (!root) return;
 
   root.innerHTML = `
-    <section class="panel" id="professor">
-      <h2>Professor</h2>
+    <section class="panel" id="members">
+      <h2>Members</h2>
       <div class="card professor-card">
         <img class="prof-photo" src="${p.photo}" alt="${p.photoAlt || p.name}" />
         <h3>${p.name}</h3>
@@ -106,22 +106,21 @@ function renderProfessor() {
           ${memberLink("Email", p.email, true)}
         </div>
         <p class="prof-affiliation">${p.affiliation}</p>
+        ${
+          p.coordinates?.length
+            ? `
+        <div class="prof-coordinates">
+          <h4>Coordinates</h4>
+          <p>${p.coordinates.join("<br />")}</p>
+        </div>
+        `
+            : ""
+        }
         <h4>Educations</h4>
         <ul class="edu-list">
           ${p.educations.map((e) => `<li>${e}</li>`).join("")}
         </ul>
       </div>
-    </section>
-  `;
-}
-
-function renderMembers() {
-  const root = document.getElementById("members-root");
-  if (!root) return;
-
-  root.innerHTML = `
-    <section class="panel" id="members">
-      <h2>Members</h2>
       <div class="member-grid">
         ${siteData.members
           .map(
@@ -210,7 +209,7 @@ function renderProjects() {
 
 function setupSectionNavigation() {
   const navLinks = Array.from(document.querySelectorAll(".top-nav__inner a"));
-  const allSections = ["news", "research", "professor", "members", "alumni", "projects", "publications"];
+  const allSections = ["news", "research", "members", "alumni", "projects", "publications"];
   const homeSections = ["news", "research"];
 
   function setActiveNav(hash) {
@@ -253,7 +252,6 @@ function setupSectionNavigation() {
 
 renderNews();
 renderResearch();
-renderProfessor();
 renderMembers();
 renderAlumni();
 renderProjects();
