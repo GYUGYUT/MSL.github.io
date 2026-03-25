@@ -39,7 +39,7 @@ function renderNews() {
     <section class="panel" id="news">
       <div class="panel-head">
         <h2>News</h2>
-        <p>최근 1년 내 소식만 자동 노출됩니다.</p>
+        <p>출판일 또는 시작일 기준 최근 1년 내 소식만 자동 노출됩니다.</p>
       </div>
       <div class="news-grid">
         ${
@@ -57,6 +57,33 @@ function renderNews() {
                 .join("")
             : '<article class="card news-card"><p class="news-text">현재 표시할 최근 뉴스가 없습니다.</p></article>'
         }
+      </div>
+    </section>
+  `;
+}
+
+function renderResearch() {
+  const root = document.getElementById("research-root");
+  if (!root) return;
+
+  root.innerHTML = `
+    <section class="panel" id="research">
+      <div class="panel-head">
+        <h2>Research</h2>
+        <p>${siteData.labIntro || ""}</p>
+      </div>
+      <div class="research-grid">
+        ${(siteData.research || [])
+          .map(
+            (r) => `
+              <article class="card research-card">
+                <img class="research-image" src="${r.image}" alt="${r.imageAlt || r.title}" />
+                <h3>${r.title}</h3>
+                <p>${r.summary}</p>
+              </article>
+            `
+          )
+          .join("")}
       </div>
     </section>
   `;
@@ -181,40 +208,53 @@ function renderProjects() {
   `;
 }
 
-function setupTopNavActiveState() {
+function setupSectionNavigation() {
   const navLinks = Array.from(document.querySelectorAll(".top-nav__inner a"));
-  if (!navLinks.length) return;
+  const allSections = ["news", "research", "professor", "members", "alumni", "projects", "publications"];
+  const homeSections = ["news", "research"];
 
-  const sections = navLinks
-    .map((a) => document.querySelector(a.getAttribute("href")))
-    .filter(Boolean);
-
-  const setActive = (id) => {
+  function setActiveNav(hash) {
     navLinks.forEach((link) => {
-      const hit = link.getAttribute("href") === `#${id}`;
-      link.classList.toggle("is-active", hit);
-      link.setAttribute("aria-current", hit ? "page" : "false");
+      const active = link.getAttribute("href") === `#${hash}`;
+      link.classList.toggle("is-active", active);
+      link.setAttribute("aria-current", active ? "page" : "false");
     });
-  };
+  }
 
-  if (sections.length) setActive(sections[0].id);
+  function showOnly(sectionIds) {
+    allSections.forEach((id) => {
+      const section = document.getElementById(id);
+      if (!section) return;
+      section.classList.toggle("section-hidden", !sectionIds.includes(id));
+    });
+  }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visible = entries
-        .filter((e) => e.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      if (visible.length) setActive(visible[0].target.id);
-    },
-    { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.3, 0.6] }
-  );
+  function applyFromHash() {
+    const hash = (window.location.hash || "#home").replace("#", "");
+    if (hash === "home") {
+      showOnly(homeSections);
+      setActiveNav("home");
+      return;
+    }
 
-  sections.forEach((section) => observer.observe(section));
+    if (allSections.includes(hash)) {
+      showOnly([hash]);
+      setActiveNav(hash);
+      return;
+    }
+
+    showOnly(homeSections);
+    setActiveNav("home");
+  }
+
+  window.addEventListener("hashchange", applyFromHash);
+  applyFromHash();
 }
 
 renderNews();
+renderResearch();
 renderProfessor();
 renderMembers();
 renderAlumni();
 renderProjects();
-setupTopNavActiveState();
+setupSectionNavigation();

@@ -30,33 +30,40 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: #f5f7efde;
+  background: #ffffffeb;
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid #d9e2d5;
+  border-bottom: 1px solid #d7e2dd;
 }
 
 .top-nav__inner {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0.65rem 1.5rem;
+  padding: 0.6rem 1.5rem;
   display: flex;
-  gap: 0.45rem;
+  gap: 0.3rem;
   overflow-x: auto;
 }
 
 .top-nav__inner a {
   white-space: nowrap;
   text-decoration: none;
-  color: #1b4f47;
-  border: 1px solid #9fd8cd;
-  background: #ebf8f5;
-  border-radius: 999px;
-  padding: 0.28rem 0.6rem;
-  font-size: 0.85rem;
+  color: #2b4e49;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.38rem 0.72rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .top-nav__inner a:hover {
-  background: #def1ed;
+  background: #edf4f2;
+}
+
+.top-nav__inner a.is-active {
+  background: #0f766e;
+  color: #f4fffd;
+  border-color: #0f766e;
 }
 
 .hero {
@@ -122,6 +129,10 @@ main {
 .panel {
   margin-top: 2rem;
   scroll-margin-top: 4.2rem;
+}
+
+.section-hidden {
+  display: none !important;
 }
 
 .panel h2 {
@@ -266,6 +277,40 @@ main {
   margin: 0;
   color: #5b6a5c;
   font-size: 0.94rem;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.9rem;
+}
+
+.news-card {
+  border-left: 4px solid #1f9d8f;
+}
+
+.news-date {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #11635a;
+}
+
+.news-text {
+  line-height: 1.6;
+}
+
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.research-image {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #d7e2dd;
+  margin-bottom: 0.7rem;
 }
 
 .alumni-grid {

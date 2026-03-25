@@ -1,4 +1,5 @@
 const siteData = {
+  "labIntro": "Medica System Lab (MSL)은 Continual Learning, 이미지 생성(Generative Models), 이상치 탐지(Anomaly Detection)를 포함한 의료/산업 AI 핵심 기술을 연구합니다.",
   "news": [
     {
       "publicationDate": "2026-01-24",
@@ -14,6 +15,26 @@ const siteData = {
       "startDate": "2025-07-01",
       "title": "중기부 과제 시작",
       "description": "온디바이스 AI 기반 수소 인프라 예지보전 플랫폼 개발 과제가 시작되었습니다."
+    }
+  ],
+  "research": [
+    {
+      "title": "AI/ML in Beyond-5G & Explainable AI",
+      "summary": "Wireless/Mobile 자원관리, Federated Learning 기반 클라이언트 클러스터링, Test Case Prioritization 및 신경망 설명가능성 분석을 수행합니다.",
+      "image": "assets/images/MSL_Research1.jpg",
+      "imageAlt": "MSL research topic 1"
+    },
+    {
+      "title": "Medical Image Processing",
+      "summary": "질환 예후 예측, 비지도 이상치 탐지, 질환 중증도 추정, diffusion 기반 초해상화, 불균형/노이즈 데이터 학습을 연구합니다.",
+      "image": "assets/images/MSL_Research2.jpg",
+      "imageAlt": "MSL research topic 2"
+    },
+    {
+      "title": "Robust Recognition & Image Restoration",
+      "summary": "자율주행 강건 객체인식과 멀티 열화(저조도/안개/비) 환경 영상 복원을 위한 cost-efficient 딥러닝 모델을 개발합니다.",
+      "image": "assets/images/MSL_Research3.jpg",
+      "imageAlt": "MSL research topic 3"
     }
   ],
   "professor": {
@@ -55,7 +76,7 @@ const siteData = {
       "alt": "Hyunmin Kong",
       "nameHtml": "Hyunmin Kong <span>(공현민)</span>",
       "role": "Ph.D. Student, started 2026",
-      "scholar": null,
+      "scholar": "https://scholar.google.com/citations?user=9vqlTzkAAAAJ&hl=ko&oi=ao",
       "email": "khm1754@g.skku.edu",
       "homepage": null
     },
@@ -64,7 +85,7 @@ const siteData = {
       "alt": "Jungwoo Bae",
       "nameHtml": "Jungwoo Bae <span>(배정우)</span>",
       "role": "Master Student, started 2024",
-      "scholar": null,
+      "scholar": "https://scholar.google.com/citations?hl=ko&view_op=list_works&gmla=AEk_c1vJCJph1cYR4BbrEEoKA75l84oCHuSLbke-Y19iQb7XvfM0Jmlwo3IMsrMSVlaMWi4EuQHX74_gARTHfItrlIdaXMAAFBo2GTecNBL-pMOAoYUssoRtvcgNDOM&user=mx0Bf0IAAAAJ",
       "email": "baejungwoo@g.skku.edu",
       "homepage": null
     },
