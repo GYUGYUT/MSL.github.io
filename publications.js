@@ -231,33 +231,6 @@ Cross-Layer QoS mapping for H.264 SVC over 3GPP LTE Systems, ITU-T Study Group 1
 QoS mapping for H.264 SVC over 3GPP LTE using cross-layer approach, ITU-T Study Group 16, AVD-4020, Nov. 2010.
 Junho Jeong, Doug Young Suh, Jitae Shin, Joo Myung Seok(ETRI), Jong Hyup Lee(ETRI), Compatibility of MPEG-4 Traffic Descriptors to the Current Networks, MPEG, M7740, December 3, 2001, Pataya.`;
 
-const preprintEntries = [
-  {
-    citation:
-      "Gyutae Oh, Jitae Shin, UniPrompt-CL: Sustainable Continual Learning in Medical AI with Unified Prompt Pools, CoRR abs/2508.10954, 2025.",
-    links: [
-      {
-        label: "Scholar",
-        href: "https://scholar.google.com/citations?view_op=view_citation&hl=ko&user=2_rG1kQAAAAJ&citation_for_view=2_rG1kQAAAAJ:LkGwnXOMwfcC"
-      },
-      {
-        label: "arXiv",
-        href: "https://arxiv.org/abs/2508.10954"
-      }
-    ]
-  },
-  {
-    citation:
-      "Gyutae Oh, Jitae Shin, Residual SODAP: Residual Self-Organizing Domain-Adaptive Prompting with Structural Knowledge Preservation for Continual Learning, CoRR abs/2603.12816, 2026.",
-    links: [
-      {
-        label: "arXiv",
-        href: "https://arxiv.org/abs/2603.12816"
-      }
-    ]
-  }
-];
-
 function extractYear(citation) {
   const years = citation.match(/\b(19|20)\d{2}\b/g);
   if (!years || years.length === 0) return "Unknown";
@@ -281,18 +254,6 @@ function buildYearMap(citations) {
   }, {});
 }
 
-function buildYearMapFromEntries(entries) {
-  return entries.reduce((acc, entry) => {
-    const year = extractYear(entry.citation);
-    if (!acc[year]) acc[year] = [];
-    acc[year].push({
-      citation: entry.citation,
-      links: entry.links || []
-    });
-    return acc;
-  }, {});
-}
-
 const publicationData = {
   journal: buildYearMap(
     rawJournalText
@@ -306,7 +267,6 @@ const publicationData = {
       .map((line) => line.trim())
       .filter(Boolean)
   ),
-  preprint: buildYearMapFromEntries(preprintEntries),
   patent: buildYearMap(
     rawPatentText
       .split("\n")
