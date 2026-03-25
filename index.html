@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medica System Lab (MSL)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__content">
+        <p class="hero__tag">AI Research Group</p>
+        <h1>Medica System Lab <span>(MSL)</span></h1>
+        <p>
+          의료 인공지능과 시스템 연구를 수행하는 연구실 홈페이지 템플릿입니다.
+          데이터 파일만 수정하면 주요 섹션이 자동 업데이트됩니다.
+        </p>
+      </div>
+      <div class="hero__shape" aria-hidden="true"></div>
+    </header>
+
+    <main>
+      <div id="professor-root"></div>
+      <div id="members-root"></div>
+      <div id="alumni-root"></div>
+      <div id="projects-root"></div>
+
+      <section class="panel publications-panel" id="publications">
+        <div class="panel-head">
+          <h2>Publications</h2>
+          <p>저널, 컨퍼런스, 특허를 연도별로 관리하는 섹션입니다.</p>
+        </div>
+
+        <div class="pub-type-tabs" role="tablist" aria-label="Publication Types">
+          <button class="pub-tab is-active" type="button" data-type="journal" role="tab" aria-selected="true">
+            Journal
+          </button>
+          <button class="pub-tab" type="button" data-type="conference" role="tab" aria-selected="false">
+            Conference
+          </button>
+          <button class="pub-tab" type="button" data-type="patent" role="tab" aria-selected="false">
+            Patent
+          </button>
+        </div>
+
+        <div class="pub-board card">
+          <div id="pub-list" class="pub-list" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Medica System Lab (MSL)</p>
+    </footer>
+
+    <script src="site-data.js"></script>
+    <script src="render-sections.js"></script>
+    <script src="publications.js"></script>
+  </body>
+</html>
