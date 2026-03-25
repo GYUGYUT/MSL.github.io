@@ -23,6 +23,7 @@ jobs:
         run: |
           VERSION="$(date -u +%Y%m%d%H%M%S)"
           perl -0pi -e "s/styles\.css\?v=\d[\d-]*/styles.css?v=$VERSION/g" index.html
+          perl -0pi -e "s/site-data\.js\?v=\d[\d-]*/site-data.js?v=$VERSION/g" index.html
           perl -0pi -e "s/publications\.js\?v=\d[\d-]*/publications.js?v=$VERSION/g" index.html
           perl -0pi -e "s/render-sections\.js\?v=\d[\d-]*/render-sections.js?v=$VERSION/g" index.html
 

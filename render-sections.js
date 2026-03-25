@@ -169,6 +169,12 @@ function renderHeroStats() {
     .join("");
 }
 
+function renderFooterYear() {
+  const footerCopy = document.getElementById("footer-copy");
+  if (!footerCopy) return;
+  footerCopy.textContent = `© ${new Date().getFullYear()} Medica System Lab (MSL)`;
+}
+
 function renderNews() {
   const root = document.getElementById("news-root");
   if (!root) return;
@@ -481,6 +487,7 @@ function setupSectionNavigation() {
 }
 
 renderHeroStats();
+renderFooterYear();
 renderNews();
 renderResearch();
 setupResearchLightbox();
