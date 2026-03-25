@@ -11,6 +11,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: "Noto Sans KR", sans-serif;
@@ -20,6 +24,39 @@ body {
     radial-gradient(circle at 80% 5%, #f2e5c7 0%, transparent 35%),
     var(--bg);
   min-height: 100vh;
+}
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #f5f7efde;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #d9e2d5;
+}
+
+.top-nav__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.65rem 1.5rem;
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+}
+
+.top-nav__inner a {
+  white-space: nowrap;
+  text-decoration: none;
+  color: #1b4f47;
+  border: 1px solid #9fd8cd;
+  background: #ebf8f5;
+  border-radius: 999px;
+  padding: 0.28rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.top-nav__inner a:hover {
+  background: #def1ed;
 }
 
 .hero {
@@ -84,6 +121,7 @@ main {
 
 .panel {
   margin-top: 2rem;
+  scroll-margin-top: 4.2rem;
 }
 
 .panel h2 {
@@ -325,6 +363,16 @@ main {
   border-color: #cad3cb;
 }
 
+.prof-photo {
+  width: min(250px, 100%);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 12px;
+  margin-bottom: 0.8rem;
+  background: #dbe3d7;
+}
+
 .professor-card h4 {
   margin: 0.9rem 0 0.45rem;
   font-family: "Space Grotesk", sans-serif;
@@ -377,7 +425,7 @@ footer {
 
 @media (max-width: 700px) {
   .hero {
-    padding-top: 3.8rem;
+    padding-top: 3.2rem;
   }
 
   .hero__shape {

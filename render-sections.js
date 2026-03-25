@@ -10,17 +10,74 @@ function memberLink(label, href, isMail) {
   return `<a class="member-btn" href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
 }
 
+function parseDateOnly(dateText) {
+  return new Date(`${dateText}T00:00:00`);
+}
+
+function getNewsBaseDate(newsItem) {
+  return newsItem.publicationDate || newsItem.startDate || null;
+}
+
+function isWithinDays(baseDateText, days) {
+  if (!baseDateText) return false;
+  const created = parseDateOnly(baseDateText);
+  const now = new Date();
+  const ms = now.getTime() - created.getTime();
+  return ms >= 0 && ms <= days * 24 * 60 * 60 * 1000;
+}
+
+function renderNews() {
+  const root = document.getElementById("news-root");
+  if (!root) return;
+
+  const NEWS_ACTIVE_DAYS = 365;
+  const activeNews = (siteData.news || [])
+    .map((n) => ({ ...n, baseDate: getNewsBaseDate(n) }))
+    .filter((n) => isWithinDays(n.baseDate, NEWS_ACTIVE_DAYS));
+
+  root.innerHTML = `
+    <section class="panel" id="news">
+      <div class="panel-head">
+        <h2>News</h2>
+        <p>최근 1년 내 소식만 자동 노출됩니다.</p>
+      </div>
+      <div class="news-grid">
+        ${
+          activeNews.length
+            ? activeNews
+                .map(
+                  (n) => `
+              <article class="card news-card">
+                <p class="news-date">${n.baseDate}</p>
+                <h3>${n.title}</h3>
+                <p class="news-text">${n.description}</p>
+              </article>
+            `
+                )
+                .join("")
+            : '<article class="card news-card"><p class="news-text">현재 표시할 최근 뉴스가 없습니다.</p></article>'
+        }
+      </div>
+    </section>
+  `;
+}
+
 function renderProfessor() {
   const p = siteData.professor;
   const root = document.getElementById("professor-root");
   if (!root) return;
 
   root.innerHTML = `
-    <section class="panel">
+    <section class="panel" id="professor">
       <h2>Professor</h2>
       <div class="card professor-card">
+        <img class="prof-photo" src="${p.photo}" alt="${p.photoAlt || p.name}" />
         <h3>${p.name}</h3>
         <p class="prof-role">${p.role}</p>
+        <div class="member-actions">
+          ${memberLink("Google Scholar", p.scholar, false)}
+          ${memberLink("Email", p.email, true)}
+        </div>
         <p class="prof-affiliation">${p.affiliation}</p>
         <h4>Educations</h4>
         <ul class="edu-list">
@@ -36,7 +93,7 @@ function renderMembers() {
   if (!root) return;
 
   root.innerHTML = `
-    <section class="panel">
+    <section class="panel" id="members">
       <h2>Members</h2>
       <div class="member-grid">
         ${siteData.members
@@ -124,7 +181,40 @@ function renderProjects() {
   `;
 }
 
+function setupTopNavActiveState() {
+  const navLinks = Array.from(document.querySelectorAll(".top-nav__inner a"));
+  if (!navLinks.length) return;
+
+  const sections = navLinks
+    .map((a) => document.querySelector(a.getAttribute("href")))
+    .filter(Boolean);
+
+  const setActive = (id) => {
+    navLinks.forEach((link) => {
+      const hit = link.getAttribute("href") === `#${id}`;
+      link.classList.toggle("is-active", hit);
+      link.setAttribute("aria-current", hit ? "page" : "false");
+    });
+  };
+
+  if (sections.length) setActive(sections[0].id);
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (visible.length) setActive(visible[0].target.id);
+    },
+    { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.3, 0.6] }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+}
+
+renderNews();
 renderProfessor();
 renderMembers();
 renderAlumni();
 renderProjects();
+setupTopNavActiveState();

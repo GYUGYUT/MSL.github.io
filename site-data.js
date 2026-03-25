@@ -1,7 +1,28 @@
 const siteData = {
+  "news": [
+    {
+      "publicationDate": "2026-01-24",
+      "title": "ICCRD 2026 논문 발표 축하",
+      "description": "Seungho Jung, Gyutae Oh, Hyunmin Kong 연구 결과가 ICCRD 2026에 채택되었습니다. 축하합니다!"
+    },
+    {
+      "publicationDate": "2026-05-06",
+      "title": "ICASSP 2026 발표 축하",
+      "description": "Minseon Park, Jungwoo Bae 연구가 ICASSP 2026에서 발표되었습니다. 축하합니다!"
+    },
+    {
+      "startDate": "2025-07-01",
+      "title": "중기부 과제 시작",
+      "description": "온디바이스 AI 기반 수소 인프라 예지보전 플랫폼 개발 과제가 시작되었습니다."
+    }
+  ],
   "professor": {
+    "photo": "assets/images/headshot.jpg",
+    "photoAlt": "Prof. Jitae Shin",
     "name": "Prof. Jitae Shin",
     "role": "Professor of Sungkyunkwan University",
+    "email": "jtshin@skku.edu",
+    "scholar": "https://scholar.google.com/citations?user=lxtFyQ0AAAAJ&hl=en",
     "affiliation": "School of Electronic & Electrical Engineering (전자전기공학부), Department of Electrical & Computer Engineering (전자전기컴퓨터공학과), Department of Intelligent Robotics (지능형로봇학과)",
     "educations": [
       "(2001) Ph.D. Electrical Enginerring, University of Southern California, USA",
