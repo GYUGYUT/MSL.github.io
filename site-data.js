@@ -78,7 +78,7 @@ const siteData = {
       "role": "Integrated Ph.D. Student, started 2021",
       "scholar": null,
       "email": "swsda95@naver.com",
-      "homepage": null
+      "homepage": "https://scholar.google.com/citations?user=xm6czH8AAAAJ&hl=ko"
     },
     {
       "photo": "assets/images/gyutaeoh.jpg",
@@ -99,12 +99,12 @@ const siteData = {
       "homepage": null
     },
     {
-      "photo": "assets/images/member-placeholder.svg",
+      "photo": "assets/images/siwon-hwang.jpg",
       "alt": "Siwon Hwang",
       "nameHtml": "Siwon Hwang <span>(황시원)</span>",
       "role": "Ph.D. Student, M.S. completed 2025, rejoined in 2026",
       "scholar": null,
-      "email": null,
+      "email": "hswhjw5890@g.skku.edu",
       "homepage": null
     },
     {
@@ -123,14 +123,14 @@ const siteData = {
       "role": "Master Student, started 2024",
       "scholar": "https://scholar.google.com/citations?hl=ko&view_op=list_works&gmla=AEk_c1vJCJph1cYR4BbrEEoKA75l84oCHuSLbke-Y19iQb7XvfM0Jmlwo3IMsrMSVlaMWi4EuQHX74_gARTHfItrlIdaXMAAFBo2GTecNBL-pMOAoYUssoRtvcgNDOM&user=mx0Bf0IAAAAJ",
       "email": "baejungwoo@g.skku.edu",
-      "homepage": null
+      "homepage": "https://baejungwoo.github.io/"
     },
     {
       "photo": "assets/images/seungho.jpg",
       "alt": "Seungho Jung",
       "nameHtml": "Seungho Jung <span>(정승호)</span>",
       "role": "Master Student, started 2025",
-      "scholar": null,
+      "scholar": "https://scholar.google.com/citations?user=gkT7pIoAAAAJ&hl=en",
       "email": "richardjung@g.skku.edu",
       "homepage": null
     },
@@ -172,11 +172,20 @@ const siteData = {
     },
     {
       "photo": "assets/images/Daeyoung.jpg",
-      "alt": "Deayoung Kim",
-      "nameHtml": "Deayoung Kim <span>(김대영)</span>",
+      "alt": "daeyoung Kim",
+      "nameHtml": "daeyoung Kim <span>(김대영)</span>",
       "role": "Master Student, started 2025",
       "scholar": null,
       "email": "kdyuoung1999@g.skku.edu",
+      "homepage": null
+    },
+    {
+      "photo": "assets/images/Geonhyeok Lee.jpg",
+      "alt": "Geonhyeok Lee",
+      "nameHtml": "Geonhyeok Lee <span>(이건혁)</span>",
+      "role": "Member",
+      "scholar": null,
+      "email": "dlrjsgur@g.skku.edu",
       "homepage": null
     },
   ],
