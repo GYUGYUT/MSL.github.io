@@ -435,6 +435,56 @@ main {
   box-shadow: 0 12px 26px rgba(23, 64, 58, 0.12);
 }
 
+.gallery-card {
+  padding: 0.9rem;
+}
+
+.gallery-frame {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.65rem;
+  align-items: center;
+}
+
+.gallery-image-btn {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: zoom-in;
+}
+
+.gallery-image {
+  width: 100%;
+  max-height: 68vh;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid #d7e2dd;
+  background: #f2f6f4;
+}
+
+.gallery-nav {
+  border: 1px solid #9fd8cd;
+  background: #ebf8f5;
+  color: #1a4d46;
+  border-radius: 10px;
+  padding: 0.5rem 0.65rem;
+  font-family: "Space Grotesk", sans-serif;
+  cursor: pointer;
+}
+
+.gallery-nav:hover {
+  background: #dff0ec;
+}
+
+.gallery-counter {
+  margin: 0.55rem 0 0;
+  text-align: center;
+  color: #355650;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
 .lightbox {
   position: fixed;
   inset: 0;
@@ -724,6 +774,14 @@ footer {
 
   .hero__brand-text {
     bottom: 0;
+  }
+
+  .gallery-frame {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-nav {
+    width: 100%;
   }
 
   .location-layout {

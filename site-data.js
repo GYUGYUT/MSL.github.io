@@ -37,6 +37,33 @@ const siteData = {
       "imageAlt": "MSL research topic 3"
     }
   ],
+  "gallery": {
+    "title": "Lab Trip to Gangwon-do",
+    "date": "2025.08",
+    "description": "랩실 강원도 여행",
+    "images": [
+      {
+        "src": "assets/images/강원도/KakaoTalk_20260326_141000159.jpg",
+        "alt": "MSL Gangwon-do trip photo 1"
+      },
+      {
+        "src": "assets/images/강원도/KakaoTalk_20260326_141000159_01.jpg",
+        "alt": "MSL Gangwon-do trip photo 2"
+      },
+      {
+        "src": "assets/images/강원도/KakaoTalk_20260326_141000159_02.jpg",
+        "alt": "MSL Gangwon-do trip photo 3"
+      },
+      {
+        "src": "assets/images/강원도/KakaoTalk_20260326_141000159_03.jpg",
+        "alt": "MSL Gangwon-do trip photo 4"
+      },
+      {
+        "src": "assets/images/강원도/KakaoTalk_20260326_141000159_04.jpg",
+        "alt": "MSL Gangwon-do trip photo 5"
+      }
+    ]
+  },
   "location": {
     "title": "Media System Lab",
     "campus": "Sungkyunkwan University, Natural Sciences Campus",
@@ -103,7 +130,7 @@ const siteData = {
       "alt": "Siwon Hwang",
       "nameHtml": "Siwon Hwang <span>(황시원)</span>",
       "role": "Ph.D. Student, M.S. completed 2025, rejoined in 2026",
-      "scholar": null,
+      "scholar": "https://scholar.google.com/citations?user=LUlmWe0AAAAJ&hl=ko&oi=ao",
       "email": "hswhjw5890@g.skku.edu",
       "homepage": null
     },

@@ -231,8 +231,8 @@ function renderResearch() {
           .map(
             (r) => `
               <article class="card research-card">
-                <button class="research-image-btn" type="button" aria-label="Expand ${r.title} image">
-                  <img class="research-image" src="${r.image}" alt="${r.imageAlt || r.title}" />
+                <button class="research-image-btn zoom-image-btn" type="button" aria-label="Expand ${r.title} image">
+                  <img class="research-image zoom-target" src="${r.image}" alt="${r.imageAlt || r.title}" />
                 </button>
                 <h3>${r.title}</h3>
                 <p>${r.summary}</p>
@@ -245,12 +245,85 @@ function renderResearch() {
   `;
 }
 
-function setupResearchLightbox() {
-  const root = document.getElementById("research-root");
+function renderGallery() {
+  const root = document.getElementById("gallery-root");
+  const gallery = siteData.gallery;
+  if (!root || !gallery) return;
+
+  const imageCount = (gallery.images || []).length;
+  if (!imageCount) {
+    root.innerHTML = `
+      <section class="panel" id="gallery">
+        <div class="panel-head">
+          <h2>Gallery</h2>
+          <p>${gallery.date || ""} · ${gallery.description || ""}</p>
+        </div>
+        <div class="card">
+          <p class="news-text">No gallery images have been added yet.</p>
+        </div>
+      </section>
+    `;
+    return;
+  }
+
+  root.innerHTML = `
+    <section class="panel" id="gallery">
+      <div class="panel-head">
+        <h2>Gallery</h2>
+        <p>${gallery.date || ""} · ${gallery.description || ""}</p>
+      </div>
+      <div class="card gallery-card">
+        <div class="gallery-frame">
+          <button class="gallery-nav" id="gallery-prev" type="button" aria-label="Previous image">Prev</button>
+          <button class="gallery-image-btn zoom-image-btn" type="button" aria-label="Expand gallery image">
+            <img class="gallery-image zoom-target" id="gallery-main-image" src="" alt="" />
+          </button>
+          <button class="gallery-nav" id="gallery-next" type="button" aria-label="Next image">Next</button>
+        </div>
+        <p class="gallery-counter" id="gallery-counter"></p>
+      </div>
+    </section>
+  `;
+}
+
+function setupGalleryCarousel() {
+  const gallery = siteData.gallery;
+  if (!gallery || !gallery.images || !gallery.images.length) return;
+
+  const image = document.getElementById("gallery-main-image");
+  const counter = document.getElementById("gallery-counter");
+  const prev = document.getElementById("gallery-prev");
+  const next = document.getElementById("gallery-next");
+  if (!image || !counter || !prev || !next) return;
+
+  let index = 0;
+  const total = gallery.images.length;
+
+  function update() {
+    const current = gallery.images[index];
+    image.src = current.src;
+    image.alt = current.alt || `${gallery.title} ${index + 1}`;
+    counter.textContent = `${gallery.title} · ${index + 1} / ${total}`;
+  }
+
+  prev.addEventListener("click", () => {
+    index = (index - 1 + total) % total;
+    update();
+  });
+
+  next.addEventListener("click", () => {
+    index = (index + 1) % total;
+    update();
+  });
+
+  update();
+}
+
+function setupImageLightbox() {
   const lightbox = document.getElementById("image-lightbox");
   const lightboxImage = document.getElementById("lightbox-image");
   const closeButton = document.getElementById("lightbox-close");
-  if (!root || !lightbox || !lightboxImage || !closeButton) return;
+  if (!lightbox || !lightboxImage || !closeButton) return;
 
   function closeLightbox() {
     lightbox.classList.remove("is-open");
@@ -260,11 +333,11 @@ function setupResearchLightbox() {
     document.body.classList.remove("lightbox-open");
   }
 
-  root.addEventListener("click", (event) => {
-    const trigger = event.target.closest(".research-image-btn");
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest(".zoom-image-btn");
     if (!trigger) return;
 
-    const image = trigger.querySelector(".research-image");
+    const image = trigger.querySelector(".zoom-target");
     if (!image) return;
 
     lightboxImage.src = image.src;
@@ -455,7 +528,7 @@ function renderLocation() {
 
 function setupSectionNavigation() {
   const navLinks = Array.from(document.querySelectorAll(".top-nav__inner a"));
-  const allSections = ["news", "research", "members", "alumni", "projects", "location", "publications"];
+  const allSections = ["news", "research", "members", "alumni", "projects", "publications", "gallery", "location"];
   const homeSections = ["news", "research"];
 
   function setActiveNav(hash) {
@@ -500,9 +573,11 @@ renderHeroStats();
 renderFooterYear();
 renderNews();
 renderResearch();
-setupResearchLightbox();
 renderMembers();
 renderAlumni();
 renderProjects();
+renderGallery();
+setupGalleryCarousel();
+setupImageLightbox();
 renderLocation();
 setupSectionNavigation();
