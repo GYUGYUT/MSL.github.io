@@ -395,6 +395,16 @@ function renderProjects() {
       <div class="panel-head">
         <h2>Projects</h2>
         <p>Projects are classified automatically into current and past categories based on their end dates.</p>
+        <div class="section-counts" aria-label="Project counts">
+          <article class="count-pill">
+            <strong>${groupedProjects.current.length}</strong>
+            <span>Current Projects</span>
+          </article>
+          <article class="count-pill">
+            <strong>${groupedProjects.past.length}</strong>
+            <span>Past Projects</span>
+          </article>
+        </div>
       </div>
       <div class="project-columns">
         <article class="card project-card">

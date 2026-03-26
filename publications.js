@@ -283,6 +283,32 @@ function sortedYears(type) {
   });
 }
 
+function countPublicationItems(type) {
+  return Object.values(publicationData[type] || {}).reduce((sum, items) => sum + items.length, 0);
+}
+
+function renderPublicationCounts() {
+  const root = document.getElementById("publication-counts");
+  if (!root) return;
+
+  const counts = [
+    { label: "Journals", value: countPublicationItems("journal") },
+    { label: "Conferences", value: countPublicationItems("conference") },
+    { label: "Patents", value: countPublicationItems("patent") }
+  ];
+
+  root.innerHTML = counts
+    .map(
+      (item) => `
+        <article class="count-pill">
+          <strong>${item.value}</strong>
+          <span>${item.label}</span>
+        </article>
+      `
+    )
+    .join("");
+}
+
 function renderPublicationType(type) {
   const root = document.getElementById("pub-list");
   if (!root) return;
@@ -363,4 +389,5 @@ function bindPublicationTabs() {
 }
 
 bindPublicationTabs();
+renderPublicationCounts();
 renderPublicationType("journal");

@@ -223,6 +223,36 @@ main {
   color: #36503a;
 }
 
+.section-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.count-pill {
+  min-width: 120px;
+  background: #eef8f5;
+  border: 1px solid #b7e1d8;
+  border-radius: 12px;
+  padding: 0.55rem 0.7rem;
+}
+
+.count-pill strong {
+  display: block;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.1rem;
+  color: #0f5f57;
+  line-height: 1.1;
+}
+
+.count-pill span {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  color: #355650;
+}
+
 .member-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
