@@ -193,9 +193,9 @@ const siteData = {
       "alt": "Hyunyup Kwak",
       "nameHtml": "Hyunyup Kwak <span>(곽현엽)</span>",
       "role": "Master Student with SSIT, started 2025",
-      "scholar": null,
+      "scholar": "https://scholar.google.com/citations?user=xCxssWwAAAAJ&hl=en",
       "email": "skku.lets.go@g.skku.edu",
-      "homepage": null
+      "homepage": "https://www.linkedin.com/in/hyunyup-kwak-a27624188/"
     },
     {
       "photo": "assets/images/Daeyoung.jpg",
