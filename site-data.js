@@ -1,5 +1,5 @@
 const siteData = {
-  "labIntro": "Medica System Lab (MSL) studies core medical and industrial AI technologies, including continual learning, generative models, and anomaly detection.",
+  "labIntro": "Media System Lab (MSL) studies core medical and industrial AI technologies, including continual learning, generative models, and anomaly detection.",
   "news": [
     {
       "publicationDate": "2026-01-24",
@@ -38,7 +38,7 @@ const siteData = {
     }
   ],
   "location": {
-    "title": "Medica System Lab",
+    "title": "Media System Lab",
     "campus": "Sungkyunkwan University, Natural Sciences Campus",
     "addressLines": [
       "Room No. 23518",
@@ -76,9 +76,9 @@ const siteData = {
       "alt": "Wooseok Shin",
       "nameHtml": "Wooseok Shin <span>(신우석)</span>",
       "role": "Integrated Ph.D. Student, started 2021",
-      "scholar": null,
+      "scholar": "https://scholar.google.com/citations?user=xm6czH8AAAAJ&hl=ko",
       "email": "swsda95@naver.com",
-      "homepage": "https://scholar.google.com/citations?user=xm6czH8AAAAJ&hl=ko"
+      "homepage": null
     },
     {
       "photo": "assets/images/gyutaeoh.jpg",
@@ -157,9 +157,9 @@ const siteData = {
       "alt": "Minseon Park",
       "nameHtml": "Minseon Park <span>(박민선)</span>",
       "role": "Master Student, started 2025",
-      "scholar": null,
+      "scholar": "https://scholar.google.com/citations?view_op=list_works&hl=ko&user=bXPDtpMAAAAJ",
       "email": "pms01260@g.skku.edu",
-      "homepage": null
+      "homepage": "https://www.notion.so/d4d0f3fc9ad44cc2949ab23e31487c84"
     },
     {
       "photo": "assets/images/HY.jpg",
