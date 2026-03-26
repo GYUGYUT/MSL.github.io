@@ -183,7 +183,7 @@ const siteData = {
       "photo": "assets/images/Geonhyeok Lee.jpg",
       "alt": "Geonhyeok Lee",
       "nameHtml": "Geonhyeok Lee <span>(이건혁)</span>",
-      "role": "Member",
+      "role": "Master Student, started 2026",
       "scholar": null,
       "email": "dlrjsgur@g.skku.edu",
       "homepage": null
